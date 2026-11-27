@@ -1,0 +1,12 @@
+[Unit]
+Description=Collect Baientang Meituan operations data sequentially
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/subsidy
+EnvironmentFile=/etc/prescription-collector/browsers/baientang-E.env
+ExecStart=/opt/subsidy/run-meituan-browser-cycle.sh baientang-E /opt/subsidy/run-baientang-monitoring-cycle.sh
+TimeoutStartSec=600
+Nice=10

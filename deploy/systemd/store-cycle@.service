@@ -1,0 +1,13 @@
+[Unit]
+Description=Per-store cross-platform collection cycle (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/subsidy
+EnvironmentFile=/etc/subsidy-store-cycles/%i.env
+ExecStart=/opt/subsidy/run-store-cycle.sh %i
+TimeoutStartSec=2400
+TimeoutStopSec=120
+Nice=10

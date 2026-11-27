@@ -1,0 +1,12 @@
+[Unit]
+Description=Collect Meituan 10-minute operational data sequentially
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/subsidy
+EnvironmentFile=/etc/prescription-collector/browsers/baomin-E.env
+ExecStart=/opt/subsidy/run-meituan-browser-cycle.sh baomin-E /opt/subsidy/run-meituan-monitoring-cycle.sh
+TimeoutStartSec=600
+Nice=10

@@ -1,0 +1,13 @@
+[Unit]
+Description=Collect JD operations data for browser instance %i
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/subsidy
+EnvironmentFile=/etc/subsidy-stores/%i.env
+ExecStart=/usr/bin/flock -w 540 /run/lock/%i-browser.lock /opt/subsidy/run-jd-store-ops.sh
+ExecStopPost=/usr/bin/systemctl stop jingdong-store-chrome@${BROWSER_INSTANCE}.service
+TimeoutStartSec=900
+Nice=10

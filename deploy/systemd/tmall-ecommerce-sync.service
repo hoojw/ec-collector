@@ -1,0 +1,14 @@
+[Unit]
+Description=Sync Tmall e-commerce snapshots into esale_system
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/subsidy
+ExecStart=/opt/subsidy/venv/bin/python /opt/subsidy/tmall_ecommerce_to_mysql.py --config /opt/subsidy/config.json
+ExecStartPost=/opt/subsidy/venv/bin/python /opt/subsidy/tmall_onsale_to_mysql.py --config /opt/subsidy/config.json
+Nice=10
+

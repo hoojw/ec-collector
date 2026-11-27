@@ -1,0 +1,11 @@
+[Unit]
+Description=Sync Tmall e-commerce snapshots every 10 minutes
+
+[Timer]
+OnCalendar=*:0/10
+Persistent=true
+Unit=tmall-ecommerce-sync.service
+
+[Install]
+WantedBy=timers.target
+

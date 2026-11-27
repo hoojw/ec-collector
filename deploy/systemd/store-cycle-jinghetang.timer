@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the per-store cross-platform cycle for jinghetang
+
+[Timer]
+OnCalendar=*:8/10
+Persistent=true
+Unit=store-cycle@jinghetang.service
+
+[Install]
+WantedBy=timers.target

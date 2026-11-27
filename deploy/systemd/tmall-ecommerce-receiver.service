@@ -1,0 +1,24 @@
+[Unit]
+Description=Internal Tmall Patchright e-commerce snapshot receiver
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=prescription-collector
+Group=prescription-collector
+WorkingDirectory=/opt/subsidy
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/opt/subsidy/tmall-ecommerce-receiver.env
+ExecStart=/opt/subsidy/venv/bin/python -m tmall_ecommerce_receiver.server --config /opt/subsidy/tmall-ecommerce-receiver.json
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/subsidy/tmall-ecommerce-data
+
+[Install]
+WantedBy=multi-user.target

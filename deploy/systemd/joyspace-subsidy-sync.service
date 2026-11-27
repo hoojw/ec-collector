@@ -1,0 +1,13 @@
+[Unit]
+Description=Sync shared JoySpace JD activity catalog
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/subsidy/run-joyspace-catalog-sync.sh
+StandardOutput=journal
+StandardError=journal
+Nice=10

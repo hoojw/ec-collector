@@ -1,0 +1,13 @@
+[Unit]
+Description=Run the JD monitoring cycle for %i
+After=network-online.target joyspace-subsidy-sync.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/subsidy
+EnvironmentFile=/etc/subsidy-stores/%i.env
+ExecStart=/usr/bin/flock -w 300 /run/lock/jd-store-cycle-${STORE_KEY}.lock /opt/subsidy/run-jd-store-cycle.sh
+TimeoutStartSec=2400
+TimeoutStopSec=90
+Nice=10

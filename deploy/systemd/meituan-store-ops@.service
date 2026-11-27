@@ -1,0 +1,12 @@
+[Unit]
+Description=Collect Meituan operations data for browser instance %i
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/subsidy
+EnvironmentFile=/etc/subsidy-stores/%i.env
+ExecStart=/opt/subsidy/run-meituan-browser-cycle.sh %i /opt/subsidy/run-meituan-store-ops.sh
+TimeoutStartSec=600
+Nice=10
