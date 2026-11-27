@@ -182,3 +182,4 @@
 !/update_dataease_jd_cost_formulas.py
 !/validate_joyspace_sync.py
 !/workbench.py
+!/test_process_deadline.py

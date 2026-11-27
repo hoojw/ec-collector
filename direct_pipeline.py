@@ -233,8 +233,10 @@ def automatic_refund_fields(item,detail_payload):
     text=str(countdown.get('countDownText') or '')
     deadline=detail.get('processDeadline') or order.get('processDeadline')
     result={'auto_refund_deadline':None,'auto_refund_text':text[:128] or None}
-    # Only accept a platform deadline explicitly labelled as automatic refund.
-    if '自动退款' not in text:return result
+    # For pending merchant review, processDeadline is the platform deadline.
+    # Countdown copy may be missing or changed; it is not a prerequisite.
+    status=str(order.get('b2cDisplayRefundStatusDesc') or order.get('b2cRefundStatusDesc') or detail.get('refundStatusDesc') or '')
+    if not re.search(r'(^|[,，])待商家审核$',status.strip()):return result
     try:
         stamp=float(deadline)
         if stamp>1e12:stamp/=1000
